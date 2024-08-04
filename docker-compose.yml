@@ -1,0 +1,21 @@
+services:
+  lnd:
+    # v0.16.4-beta 
+    image: lightninglabs/lnd:v0.18.2-beta
+    user: 1000:1000
+    volumes:
+      - ./lnd:/data/.lnd
+    environment:
+      HOME: /data
+    restart: on-failure
+    stop_grace_period: 5m30s
+    networks:
+      default:
+        ipv4_address: 10.72.64.3
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 10.72.64.0/24
+      driver: default
+    name: lnd_testnet
